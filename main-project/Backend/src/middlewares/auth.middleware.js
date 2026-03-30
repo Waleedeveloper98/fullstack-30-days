@@ -23,7 +23,7 @@ const identifyUser = async (req, res, next) => {
         req.user = decoded;
         next()
     } catch (error) {
-        console.lot(error.message)
+        console.log(error.message)
     }
 }
 

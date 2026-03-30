@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
+import useAuth from "../hooks/useAuth";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -15,6 +16,16 @@ const Signup = () => {
     setPasswordVisible((prev) => !prev);
   };
   const navigate = useNavigate();
+  const { handleRegister } = useAuth();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("SUBMIT CLICKED");
+    const success = await handleRegister({ username, email, password });
+
+    if (success) {
+      navigate("/login");
+    }
+  };
 
   const passwordStrongChecker = (password) => {
     let obj = {};
@@ -47,7 +58,7 @@ const Signup = () => {
         <h1 className="signup-title">Sign up</h1>
 
         {/* Form */}
-        <div className="signup-form">
+        <form onSubmit={handleSubmit} className="signup-form">
           <Input
             label={"Username"}
             type={"text"}
@@ -97,10 +108,10 @@ const Signup = () => {
           </div>
 
           {/* Submit */}
-          <button className="signup-btn" type="button">
+          <button className="signup-btn" type="submit">
             Sign Up
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

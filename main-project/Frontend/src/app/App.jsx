@@ -1,10 +1,12 @@
-import React from 'react'
-import "./global.scss"
+import AppLayout from "./AppLayout";
+import "./global.scss";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <div>
+      <AppLayout />
+    </div>
+  );
+};
 
-export default App
+export default App;

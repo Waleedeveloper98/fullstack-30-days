@@ -3,14 +3,29 @@ import Input from "../components/Input";
 import { Eye, EyeOff, LockOpen, Mail } from "lucide-react";
 import { useState } from "react";
 import "../style/login.scss";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const { handleLogin } = useAuth();
+
+  const navigate = useNavigate();
+
   const handlePasswordToggle = () => {
     setPasswordVisible((prev) => !prev);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await handleLogin({ email, password });
+    if (success) {
+      navigate("/");
+    }
+  };
+
   return (
     <div className="login-wrapper">
       <div className="login-card">
@@ -18,7 +33,7 @@ const Login = () => {
         <h1 className="login-title">Log in</h1>
 
         {/* Form */}
-        <div className="login-form">
+        <form onSubmit={handleSubmit} className="login-form">
           <Input
             label={"Email"}
             type={"email"}
@@ -51,10 +66,10 @@ const Login = () => {
           </div>
 
           {/* Submit */}
-          <button className="login-btn" type="button">
+          <button className="login-btn" type="submit">
             Log In
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

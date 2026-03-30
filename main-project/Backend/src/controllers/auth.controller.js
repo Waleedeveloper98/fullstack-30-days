@@ -36,9 +36,9 @@ export const register = async (req, res) => {
         }, config.JWT_SECRET, { expiresIn: "15m" })
 
         res.cookie("refreshToken", refreshToken, {
-            HttpOnly: true,
-            secure: true,
-            sameSite: "Strict",
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
             maxAge: 7 * 24 * 60 * 60 * 1000,
         })
 
@@ -62,11 +62,10 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const { username, email, password } = req.body
+        const { email, password } = req.body
 
         const user = await userModel.findOne({
             $or: [
-                { username },
                 { email }
             ]
         })
@@ -95,9 +94,9 @@ export const login = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "Strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            secure: false,
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         })
 
         return res.status(200).json({
@@ -118,7 +117,7 @@ export const login = async (req, res) => {
 
 
 export const getMe = async (req, res) => {
-    const userId = req.user.id;
+    const userId = req.user.id
 
     const user = await userModel.findById(userId);
 
@@ -132,3 +131,45 @@ export const getMe = async (req, res) => {
     })
 }
 
+
+export const refresh = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+        return res.status(400).json({
+            message: "Refresh token not found"
+        })
+    }
+
+    try {
+        const decoded = jwt.verify(refreshToken, config.JWT_SECRET)
+
+        const user = await userModel.findById(decoded.id)
+
+        const accessToken = jwt.sign({
+            id: user._id,
+        }, config.JWT_SECRET, { expiresIn: "15m" })
+
+        const newRefreshToken = jwt.sign({
+            id: user._id,
+        }, config.JWT_SECRET, { expiresIn: "7d" })
+
+        res.cookie("refreshToken", newRefreshToken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
+
+        return res.status(200).json({
+            message: "access token is generated successfully",
+            accessToken
+        })
+    } catch (error) {
+        return res.status(401).json({
+            message: "Refresh token is invalid or has expired. Please log in again."
+        })
+    }
+
+
+}
