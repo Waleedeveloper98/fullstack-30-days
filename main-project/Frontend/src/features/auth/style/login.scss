@@ -1,0 +1,177 @@
+// === Variables ===
+$green-primary: #2eac4b;
+$green-dark: #239d42;
+$red-primary:rgb(226, 62, 62);
+$text-dark: #1a1a1a;
+$text-muted: #9e9e9e;
+$text-label: #333;
+$bg-input: #f2f2f2;
+$border-radius-input: 14px;
+$border-radius-btn: 50px;
+$border-radius-logo: 16px;
+
+// === Wrapper ===
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+// === Card ===
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+}
+
+
+// === Title ===
+.login-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 32px;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+// === Form ===
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// === Form Group ===
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: $text-label;
+  padding-left: 2px;
+}
+
+// === Input Wrapper ===
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .input-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-muted;
+    pointer-events: none;
+
+    &.left {
+      left: 16px;
+    }
+
+    &.right {
+      right: 16px;
+      pointer-events: all;
+      cursor: pointer;
+    }
+  }
+}
+
+// === Input ===
+.form-input {
+  width: 100%;
+  padding: 16px 48px;
+  background-color: $bg-input;
+  border: none;
+  border-radius: $border-radius-input;
+  font-size: 14px;
+  color: $text-muted;
+  outline: none;
+  box-sizing: border-box;
+  transition: background 0.2s ease;
+
+  &::placeholder {
+    color: $text-muted;
+    font-size: 14px;
+  }
+
+  &:focus {
+    background-color: #ebebeb;
+  }
+}
+
+// === Password Strength ===
+.strength-bar {
+  height: 3px;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 4px;
+
+  .strength-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+
+    &.weak {
+      width: 28%;
+      background-color: $red-primary;
+    }
+
+    &.medium {
+      width: 60%;
+      background-color: #f5a623;
+    }
+
+    &.strong {
+      width: 100%;
+      background-color: $green-primary;
+    }
+  }
+}
+
+.strength-text {
+  font-size: 12.5px;
+  color: $text-dark;
+  margin: 0;
+  padding-left: 2px;
+}
+
+// === Sign Up Button ===
+.login-btn {
+  width: 100%;
+  padding: 18px;
+  background-color: $green-primary;
+  color: #fff;
+  border: none;
+  border-radius: $border-radius-btn;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 8px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+  letter-spacing: 0.2px;
+
+  &:hover {
+    background-color: $green-dark;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
