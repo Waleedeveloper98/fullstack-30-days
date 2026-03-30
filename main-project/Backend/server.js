@@ -16,4 +16,5 @@ server.on("error", (err) => {
     } else {
         console.error(`❌ Server connection error ${err.message}`)
     }
+    process.exit(1)
 })
