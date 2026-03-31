@@ -12,7 +12,6 @@ const useAuth = () => {
             const data = await register({ username, email, password });
             setUser(data.user);
             setAccessToken(data.accessToken)
-            console.log(data)
             return true
         } catch (error) {
             console.log(error?.response?.data?.message)
@@ -29,7 +28,6 @@ const useAuth = () => {
             const data = await login({ email, password });
             setAccessToken(data.accessToken)
             setUser(data.user);
-            console.log(data)
             return true
         } catch (error) {
             console.log(error?.response?.data?.message)
@@ -44,8 +42,7 @@ const useAuth = () => {
         try {
             setLoading(true)
             const token = await refresh()
-            const accessToken = token.accessToken;
-            setAccessToken(accessToken)
+            setAccessToken(token.accessToken)
             const data = await getMe()
             setUser(data.user)
         } catch (error) {
