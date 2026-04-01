@@ -1,28 +1,42 @@
 import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema({
-    username: {
+    user: {
         type: String,
         trim: true,
         lowercase: true,
         required: true,
-        unique: true,
     },
     email: {
         type: String,
         trim: true,
         lowercase: true,
         required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
         trim: true,
         required: true
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    phone: {
+        type: String,
+        trim: true,
+        required: true,
+    },
+    role: {
+        type: String,
+        enum: ["Recruiter", "Applicant"],
+        default: "Applicant",
+        required: true
     }
+
 }, { timestamps: true });
 
-userSchema.index({ username: 1, email: 1 });
 
 const userModel = mongoose.model("User", userSchema);
 

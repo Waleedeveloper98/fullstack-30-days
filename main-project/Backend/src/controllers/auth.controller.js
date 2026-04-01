@@ -5,13 +5,8 @@ import config from "../config/config.js"
 
 export const register = async (req, res) => {
     try {
-        const { username, email, password } = req.body
-        const isUserAlreadyExists = await userModel.findOne({
-            $or: [
-                { username },
-                { email }
-            ]
-        });
+        const { username, email, password, role, city, phone } = req.body
+        const isUserAlreadyExists = await userModel.findOne({ email });
 
         if (isUserAlreadyExists) {
             return res.status(409).json({
@@ -24,7 +19,10 @@ export const register = async (req, res) => {
         const user = await userModel.create({
             username,
             email,
-            password: hashPassword
+            password: hashPassword,
+            role,
+            city,
+            phone
         })
 
         const refreshToken = jwt.sign({
@@ -46,8 +44,11 @@ export const register = async (req, res) => {
             message: "User registered successfully",
             user: {
                 id: user._id,
-                username: user.username,
+                username: user.name,
                 email: user.email,
+                role: user.role,
+                city: user.city,
+                phone: user.phone
             },
             accessToken
         })
@@ -103,8 +104,11 @@ export const login = async (req, res) => {
             message: "User logged in successfully",
             user: {
                 id: user._id,
-                username: user.username,
-                email: user.email
+                username: user.name,
+                email: user.email,
+                role: user.role,
+                city: user.city,
+                phone: user.phone
             },
             accessToken
         })
@@ -126,7 +130,10 @@ export const getMe = async (req, res) => {
         user: {
             id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            role: user.role,
+            city: user.city,
+            phone: user.phone
         }
     })
 }

@@ -6,6 +6,8 @@ import { rateLimit } from 'express-rate-limit'
 import morgan from "morgan"
 import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser"
+import userModel from "./models/user.model.js";
+import bcrypt from "bcryptjs"
 
 const app = express();
 
