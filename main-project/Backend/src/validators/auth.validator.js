@@ -12,12 +12,12 @@ export const validator = (req, res, next) => {
 }
 
 export const registerValidation = [
-    body("username")
+    body("name")
         .trim()
         .notEmpty()
-        .withMessage("username is required")
+        .withMessage("name is required")
         .isLength({ min: 4 })
-        .withMessage("username must be at least 4 characters long"),
+        .withMessage("name must be at least 4 characters long"),
 
     body("email")
         .trim()

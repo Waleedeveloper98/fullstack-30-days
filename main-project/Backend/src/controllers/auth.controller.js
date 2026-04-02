@@ -5,7 +5,7 @@ import config from "../config/config.js"
 
 export const register = async (req, res) => {
     try {
-        const { username, email, password, role, city, phone } = req.body
+        const { name, email, password, role, city, phone } = req.body
         const isUserAlreadyExists = await userModel.findOne({ email });
 
         if (isUserAlreadyExists) {
@@ -17,7 +17,7 @@ export const register = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 10);
 
         const user = await userModel.create({
-            username,
+            name,
             email,
             password: hashPassword,
             role,

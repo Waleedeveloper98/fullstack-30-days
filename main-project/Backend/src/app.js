@@ -8,6 +8,8 @@ import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser"
 import userModel from "./models/user.model.js";
 import bcrypt from "bcryptjs"
+import jobRouter from "./routes/job.routes.js";
+import companyRouter from "./routes/company.routes.js";
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use(limiter)
 app.use(cookieParser())
 
 app.use("/api/auth", authRouter)
+app.use("/api/jobs", jobRouter)
+app.use("/api/company", companyRouter)
 
 app.use((req, res) => {
     return res.status(404).json({
