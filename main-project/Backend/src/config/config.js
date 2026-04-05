@@ -22,6 +22,7 @@ const config = {
     NODE_ENV: process.env.NODE_ENV,
     ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN,
     JWT_SECRET: process.env.JWT_SECRET,
+    IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY
 }
 
 export default config;

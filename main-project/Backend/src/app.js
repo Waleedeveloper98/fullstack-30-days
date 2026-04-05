@@ -6,10 +6,9 @@ import { rateLimit } from 'express-rate-limit'
 import morgan from "morgan"
 import authRouter from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser"
-import userModel from "./models/user.model.js";
-import bcrypt from "bcryptjs"
 import jobRouter from "./routes/job.routes.js";
 import companyRouter from "./routes/company.routes.js";
+import applicationRouter from "./routes/application.routes.js";
 
 const app = express();
 
@@ -40,6 +39,7 @@ app.use(cookieParser())
 app.use("/api/auth", authRouter)
 app.use("/api/jobs", jobRouter)
 app.use("/api/company", companyRouter)
+app.use("/api/applications", applicationRouter)
 
 app.use((req, res) => {
     return res.status(404).json({
